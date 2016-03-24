@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
-import Button from './components/Button';
+import UserList from './components/UserList';
+//import getJSON from './utils';
 
 
 export default class App extends Component {
   constructor(props) {
     super(props);
-    this.state;
+    this.state = {};
   }
 
   render() {
     return (
-      <span></span>
+      <UserList />
     );
   }
 }
