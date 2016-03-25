@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 
-const UserList = ({users}) => {
-  return (
-    <span>Users</span>
-  );
+export default class UserList extends Component {
+  constructor(props) {
+    super(props);
+  }
+  
+  render() {
+    return (
+      <span>{this.props.users[0].name}</span>
+    ); 
+  }
 };
-
-
-export default UserList;

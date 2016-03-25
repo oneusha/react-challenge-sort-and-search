@@ -1,22 +1,25 @@
 'use strict';
 
-module.exports = (url) => {
-  var request = new XMLHttpRequest();
-  request.open('GET', '/my/url', true);
+var utils = {
+  getJSON: (url) => {
+    let xhr = new XMLHttpRequest();
+    let defer = Promise.defer();
+    
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+          defer.resolve(JSON.parse(xhr.responseText));
+        } else {
+          defer.reject(xhr.responseText);
+        }
+      }
+    };
+    
+    xhr.open('GET', url);
+    xhr.send();
+    
+    return defer.promise;
+  }
+}
 
-  request.onload = function() {
-    if (this.status >= 200 && this.status < 400) {
-      // Success!
-     return JSON.parse(this.response);
-    } else {
-      // We reached our target server, but it returned an error
-
-    }
-  };
-
-  request.onerror = function() {
-    // There was a connection error of some sort
-  };
-
-  request.send();
-};
+export default utils;
