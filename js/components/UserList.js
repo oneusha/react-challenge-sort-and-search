@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
+import UserData from './UserData';
 
 export default class UserList extends Component {
-  constructor(props) {
-    super(props);
-  }
-  
   render() {
+    let users = [];
+    this.props.users.forEach(user => {
+      users.push(<UserData user={user} key={user.id} selectUser={this.props.selectUser} />);
+    })
     return (
-      <span>{this.props.users[0].name}</span>
+      <div className="list-group">{users}</div>
     ); 
   }
 };
