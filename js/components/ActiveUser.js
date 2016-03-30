@@ -9,19 +9,19 @@ export default class ActiveUser extends Component {
       let image = '/images/' + user.image + '.svg';
       
       result = (
-        <div className="media">
-          <div className="media-left">
-            <img className="media-object" src={image} width="500" height="500"/>
+        <div className="row">
+          <div className="col-md-3">
+            <img className="media-object" src={image} width="100%" height="auto" title={user.name} alt={user.name} />
           </div>
-          <div className="media-body">
-            <h4 className="media-heading">{user.name}</h4>
+          <div className="col-md-9">
+            <h2 className="media-heading">{user.name}</h2>
             <div className="age">Age: {user.age}</div>
             <div className="phone">Phone: {user.phone}</div>
-            <div className="prase">{user.phrase}</div>
+            <p className="prase">{user.phrase}</p>
           </div>
         </div>
       )
-    }
+    } 
     
     return result; 
   }
