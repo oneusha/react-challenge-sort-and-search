@@ -5,9 +5,9 @@ export default class Toolbar extends Component {
   
   render() {
     return (
-      <span className="">
-        <SortButton type="age" direction="asc" sort={this.props.sort} />
-        <SortButton type="name" direction="asc" sort={this.props.sort} /> 
+      <span className="input-group-btn">
+        <SortButton type="age" direction={this.props.options.direction} isActive={this.props.options.type === 'age'} sort={this.props.sort} />
+        <SortButton type="name" direction={this.props.options.direction} isActive={this.props.options.type === 'name'} sort={this.props.sort} /> 
       </span>
     );
   }

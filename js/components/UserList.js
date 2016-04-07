@@ -6,7 +6,7 @@ export default class UserList extends Component {
     let users = [];
 
     this.props.users.forEach(user => {
-      users.push(<UserData user={user} key={user.id} selectUser={this.props.selectUser} />);
+      users.push(<UserData user={user} key={user.id} selectUser={this.props.selectUser} isActive={this.props.activeUserId === user.id} />);
     });
       
     return (

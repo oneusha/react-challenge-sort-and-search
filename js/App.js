@@ -5,7 +5,6 @@ import SearchBar from './components/SearchBar';
 import Toolbar from './components/Toolbar';
 import utils from './utils';
 
-
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -16,8 +15,8 @@ export default class App extends Component {
       users: [],
       activeUser: null,
       sort: {
-        direction: 'asc',
-        type: 'name'
+        direction: 1,
+        type: null
       }
     };
     
@@ -36,23 +35,26 @@ export default class App extends Component {
     this.setState({ activeUser })
   }
   
-  sort(type, direction) {
+  sort(type) {
+    let direction = type === this.state.sort.type ? -this.state.sort.direction : 1;
+
     let compare = (first, next) => {
       if (first[type] > next[type]) {
-        return 1;
+        return direction;
       }
       
       if (first[type] < next[type]) {
-        return -1;
+        return -direction;
       }
       
-      return 0;
+      return direction * (first.id - next.id);
     };
     
     this.state.users.sort(compare);
     
-    this.setState({ 
+    this.setState({
       users: this.state.users,
+      activeUser: this.state.users[0],
       sort: {
         direction,
         type
@@ -64,15 +66,18 @@ export default class App extends Component {
       input = input.toLowerCase();
     
       let users = this.originalUsers.filter(user => {
-          return user.name.toLowerCase().indexOf(input) >= 0;
+        return user.name.toLowerCase().indexOf(input) >= 0;
       });
     
-      this.setState({ users });
+      this.setState({ 
+        users,
+        activeUser: users[0]
+      });
   }
 
   render() {
     return (
-      <div className="container-fluid">
+      <div className="container">
         <div className="row">
           <div className="col-sm-4">
             <div className="form-group">
@@ -81,7 +86,7 @@ export default class App extends Component {
                 <Toolbar sort={this.sort.bind(this)} options={this.state.sort} />
               </div>
             </div>
-            <UserList users={this.state.users} selectUser={this.selectUser.bind(this)}/>
+            <UserList users={this.state.users} activeUserId={this.state.activeUser ? this.state.activeUser.id : null} selectUser={this.selectUser.bind(this)}/>
           </div>
           <div className="col-sm-8">
             <ActiveUser user={this.state.activeUser} />

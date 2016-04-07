@@ -10,7 +10,7 @@ export default class UserData extends Component {
     let image = '/images/' + user.image + '.svg';
     
     return (
-      <button className="media list-group-item" onClick={this.handleClick.bind(this)}>
+      <button className={'media list-group-item' + (this.props.isActive ? ' active' : '')} onClick={this.handleClick.bind(this)}>
         <div className="media-left">
           <img className="media-object" src={image} width="80" height="80"/>
         </div>
