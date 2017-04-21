@@ -17,7 +17,8 @@ export default class App extends Component {
       sort: {
         direction: 1,
         type: null
-      }
+      },
+      searchString: ''
     };
     
     this.loadUsers();
@@ -62,15 +63,14 @@ export default class App extends Component {
     });
   }
   
-  filter(input) {
-      input = input.toLowerCase();
-    
+  filter(searchString) {    
       let users = this.originalUsers.filter(user => {
-        return user.name.toLowerCase().indexOf(input) >= 0;
+        return user.name.toLowerCase().indexOf(searchString.toLowerCase()) >= 0;
       });
     
       this.setState({ 
         users,
+        searchString,
         activeUser: users[0]
       });
   }
@@ -86,7 +86,7 @@ export default class App extends Component {
                 <Toolbar sort={this.sort.bind(this)} options={this.state.sort} />
               </div>
             </div>
-            <UserList users={this.state.users} activeUserId={this.state.activeUser ? this.state.activeUser.id : null} selectUser={this.selectUser.bind(this)}/>
+            <UserList users={this.state.users} activeUserId={this.state.activeUser ? this.state.activeUser.id : null} selectUser={this.selectUser.bind(this)} searchString={this.state.searchString}/>
           </div>
           <div className="col-sm-8">
             <ActiveUser user={this.state.activeUser} />
